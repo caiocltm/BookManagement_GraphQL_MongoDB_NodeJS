@@ -1,0 +1,7 @@
+{
+    "env": {
+        "MONGO_USER": "caioLopes",
+        "MONGO_PASSWORD": "ZxCAsDQwE",
+        "MONGO_DB": "events-app"
+    }
+}
