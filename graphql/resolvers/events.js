@@ -19,6 +19,9 @@ module.exports = {
     },
 
     createEvent: async (args, req) => {
+
+        console.log("Cheguei no createEvent!", req.isAuth);
+        
         if(!req.isAuth) throw new Error('Error: Unauthenticated user!');
         const event = new Event({
             title: args.eventInput.title,
@@ -28,10 +31,13 @@ module.exports = {
             creator: req.userId
         });
 
+        console.log('Event to insert', event);
+
         let createdEvents;
 
         try {
-            const result = await event.save()
+            const result = await event.save();
+            console.log('Result do insert', result);
             createdEvents = transformEvent(result);
             const creator = await User.findById(req.userId);
             if(!creator) {
@@ -39,6 +45,7 @@ module.exports = {
             }
             creator.createdEvents.push(event);
             const userSaveResult = await creator.save();
+            console.log('Events created');
             return createdEvents;
         } catch(err) {
             throw err;
