@@ -7,31 +7,31 @@ module.exports = {
     
     events: async () => {
         try {
-            const events = await Event.find()
+            const events = await Event.find();
             console.log("Success: Data retrieved!");
             return events.map(event => {
                 return transformEvent(event);
             })
         } catch(err) {
-            console.log("Error: A problem ocurried to retrieve the data!");
+            console.log("Error: A problem ocurried to retrieve the data: ", err);
             throw err;
         }
     },
 
     createEvent: async (args, req) => {
-
-        console.log("Cheguei no createEvent!", req.isAuth);
         
         if(!req.isAuth) throw new Error('Error: Unauthenticated user!');
+       
         const event = new Event({
             title: args.eventInput.title,
             description: args.eventInput.description,
             price: +args.eventInput.price,
-            date: dateToString(args.eventInput.date),
+            date: args.eventInput.date,
             creator: req.userId
         });
 
-        console.log('Event to insert', event);
+        console.log('Event to insert');
+        console.log(event);
 
         let createdEvents;
 
