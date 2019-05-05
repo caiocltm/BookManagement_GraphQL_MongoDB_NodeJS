@@ -6,7 +6,7 @@ module.exports = buildSchema
         _id: ID!
         event: Event!
         user: User!
-        createAt: String!
+        createdAt: String!
         updatedAt: String!
     }
 
